@@ -1,7 +1,11 @@
 import Lottie from "lottie-react";
 import loginAnimation from "../../assets/Animations/login.json";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../provider/AuthContext";
 const Login = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <div className=" bg-purple-50 rounded-lg  my-4 w-full md:w-3/4 mx-auto ">
       <h1 className="text-center pt-12 text-3xl font-bold">Login Here</h1>

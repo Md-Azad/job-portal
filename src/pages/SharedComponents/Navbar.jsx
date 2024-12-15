@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useAuth from "../../hooks/useAuth";
 const Navbar = () => {
+  const { user } = useAuth();
   const links = (
     <>
       <li>
@@ -54,10 +56,19 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-2 ">
-        <Link to="/login" className="btn btn-accent text-white">
-          Login
-        </Link>
-        <Link className="btn btn-warning text-white ">Register</Link>
+        {user?.email ? (
+          <>
+            <p className="text-white text-xl">{user?.email}</p>
+            <button className="btn btn-accent text-white">Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="btn btn-accent text-white">
+              Login
+            </Link>
+            <Link className="btn btn-warning text-white ">Register</Link>
+          </>
+        )}
       </div>
     </div>
   );
