@@ -4,8 +4,23 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../provider/AuthContext";
 const Login = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { loginUser } = useContext(AuthContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    loginUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   return (
     <div className=" bg-purple-50 rounded-lg  my-4 w-full md:w-3/4 mx-auto ">
       <h1 className="text-center pt-12 text-3xl font-bold">Login Here</h1>
@@ -19,7 +34,7 @@ const Login = () => {
         </div>
 
         <div className="card  w-full  shadow-2xl shadow-black ml-0 md:ml-12">
-          <form className="card-body">
+          <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -27,6 +42,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="email"
+                name="email"
                 className="input input-bordered"
                 required
               />
@@ -38,6 +54,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="password"
+                name="password"
                 className="input input-bordered"
                 required
               />
@@ -48,7 +65,7 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <input type="submit" value="Login" className="btn btn-primary" />
             </div>
           </form>
           <h1 className="text-center my-4">

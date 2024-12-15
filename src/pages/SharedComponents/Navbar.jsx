@@ -2,7 +2,15 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, createLogout } = useAuth();
+
+  const handleLogout = () => {
+    createLogout()
+      .then()
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   const links = (
     <>
       <li>
@@ -59,7 +67,12 @@ const Navbar = () => {
         {user?.email ? (
           <>
             <p className="text-white text-xl">{user?.email}</p>
-            <button className="btn btn-accent text-white">Logout</button>
+            <button
+              onClick={handleLogout}
+              className="btn btn-accent text-white"
+            >
+              Logout
+            </button>
           </>
         ) : (
           <>
